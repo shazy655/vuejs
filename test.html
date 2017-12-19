@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Vue Js Test </title>
+    <meta name="description" content="Vue Js Test">
+    <meta name="author" content="SitePoint">
+
+</head>
+<body>
+<div id="app" v-if="seen" v-bind:title="message">
+    {{ message }}
+</div>
+<div id="app-2">
+  <span>
+    Hover your mouse over me for a few seconds
+    to see my dynamically bound title!
+  </span>
+</div>
+<div id="app-7">
+    <ol>
+        <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id" >
+        </todo-item>
+    </ol>
+
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.config.devtools = true
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+    var app2 =  new Vue(
+    {
+        el: '#app-7',
+            data: {
+                groceryList: [
+                     {id: 0, text: 'Vegetables'},
+                     {id: 1, text: 'Cheese'},
+                     {id: 2, text: 'Whatever else humans are supposed to eat'}
+                 ]
+            }
+    });
+    var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                seen: false
+            }
+        },
+        {
+            el: '#app-2',
+            data: {
+                message: 'You loaded this page on ' + new Date().toLocaleString()
+            },created: function () {
+                // `this` points to the vm instance
+                console.log('a is: ' + this.a)
+            }
+
+        }
+    );
+
+</script>
+</html>
